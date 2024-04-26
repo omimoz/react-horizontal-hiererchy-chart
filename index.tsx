@@ -38,7 +38,7 @@ function HiererchyChart({ items }: { items: Child }) {
                 background: ${child.border ? child.border : "black"};
               `}`}
             ></div>
-            <div className="child">{child.name}</div>
+            <div className="child">{child.content}</div>
             {child?.childs && (
               <div
                 className={`line-horizontal ${css`
@@ -67,7 +67,7 @@ function HiererchyChart({ items }: { items: Child }) {
   return (
     <div className={style}>
       <div className="flex items-center">
-        <div>{items.name}</div>
+        <div>{items.content}</div>
         {items?.childs && (
           <div
             className={`line-horizontal ${css`
