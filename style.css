@@ -1,0 +1,6 @@
+.HChart .flex {
+  display: flex;
+}
+.HChart .items-center {
+  align-items: center;
+}
