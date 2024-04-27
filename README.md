@@ -67,14 +67,11 @@ const items = {
 Finally, render the HierarchyChart component and pass in the items object:
 
 ```
-Copy
-Insert
 import { useState } from "react";
 import HiererchyChart from "./react-horizontal-hiererchy-chart";
 type hover = { value: boolean; index: number | null };
 function App() {
   const [hover, setHover] = useState<hover>({ value: false, index: null });
-  console.log(hover);
   const items = {
     content: "Or",
     level: 1,
@@ -180,7 +177,6 @@ function App() {
 }
 
 export default App;
-
 ```
 
 The modify prop allows you to customize the appearance of different levels of the chart. In this example, we're using it to change the background color of the first and third levels.
