@@ -3,8 +3,8 @@
 This is a React module that creates a hierarchical chart using CSS styling. It is written in TypeScript and uses Emotion for styling. 💅
 
 ## screen shot
+![App Screenshot](https://iili.io/JUVbKmP.jpg)
 
-[[https://iili.io/JUVbKmP.jpg|alt=React Hierarchy Chart]]
 
 ## Installation 🚀
 
