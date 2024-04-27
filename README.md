@@ -2,7 +2,7 @@
 
 This is a React module that creates a hierarchical chart using CSS styling. It is written in TypeScript and uses Emotion for styling. 💅
 
-## screen shot
+## ScreenShot 📷
 ![App Screenshot](https://iili.io/JUVbKmP.jpg)
 
 
@@ -52,7 +52,7 @@ const items = {
 };
 ```
 
-## User guide
+## User guide 📖
 
 #### Horizontal Hiererchy Chart
 
