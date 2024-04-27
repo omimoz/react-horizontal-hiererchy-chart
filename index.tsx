@@ -48,7 +48,7 @@ function HiererchyChart({
                 `}`}
               ></div>
               {modify?.[`level${level}`] ? (
-                modify?.[`level${level}`]({ item: items.content, index: index })
+                modify?.[`level${level}`]({ item: child.content, index: index })
               ) : (
                 <div>{child.content}</div>
               )}
@@ -61,7 +61,7 @@ function HiererchyChart({
                   `}`}
                 ></div>
               )}
-              <div>
+              <div className="flex-1">
                 {child.childs &&
                   level++ &&
                   child.childs.map((items, index) =>
@@ -83,11 +83,13 @@ function HiererchyChart({
   return (
     <div className={style}>
       <div className="flex items-center">
-        {modify?.level1 ? (
-          modify.level1({ item: items.content, index: 0 })
-        ) : (
-          <div>{items.content}</div>
-        )}
+        <div>
+          {modify?.level1 ? (
+            modify.level1({ item: items.content, index: 0 })
+          ) : (
+            <div>{items.content}</div>
+          )}
+        </div>
         {items?.childs && (
           <div
             className={`line-horizontal ${css`
@@ -97,7 +99,8 @@ function HiererchyChart({
             `}`}
           ></div>
         )}
-        <div>
+
+        <div className="flex-1">
           {items?.childs?.map((child, index) =>
             renderChild({
               child: child,
@@ -114,8 +117,15 @@ function HiererchyChart({
 
 export default HiererchyChart;
 const style = css`
+  width: 100%;
+
+  margin: 10px 0;
+
   .flex {
     display: flex;
+    flex: 1;
+  }
+  .flex-1 {
     flex: 1;
   }
   .items-center {
