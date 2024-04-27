@@ -1,73 +1,93 @@
 import React from "react";
-import { Child } from "./types";
+import { Child, LevelObject } from "./types";
 import { css } from "@emotion/css";
 
-function HiererchyChart({ items }: { items: Child }) {
+function HiererchyChart({
+  items,
+  modify,
+}: {
+  items: Child;
+  modify?: LevelObject;
+}) {
   const renderChild = ({
     child,
     index,
     length = 0,
+    level = 2,
   }: {
     child: Child;
     index: number;
     length: number | undefined;
-  }) => (
-    <div key={index}>
-      <div key={Math.random()} className={` levels ${child.cssClass}`}>
-        <div className="lines-container lines-container-horizontal">
-          <div
-            className={`lines ${index === 0 && "hidden"}  ${css`
-              background-color: ${child.border ? child.border : "black"};
-            `}`}
-          ></div>
-          <div
-            className={`m-line ${css`
-              background-color: ${child.border ? child.border : "black"};
-            `}`}
-          ></div>
-          <div
-            className={`lines ${length - 1 === index && "hidden"} ${css`
-              background-color: ${child.border ? child.border : "black"};
-            `}`}
-          ></div>
-        </div>
-        <div className="flex p-vertical-2">
-          <div className="flex items-center">
+    level: number;
+  }) => {
+    return (
+      <div key={index}>
+        <div key={Math.random()} className={` levels ${child.cssClass}`}>
+          <div className="lines-container lines-container-horizontal">
             <div
-              className={`line-horizontal ${css`
-                background: ${child.border ? child.border : "black"};
+              className={`lines ${index === 0 && "hidden"}  ${css`
+                background-color: ${child.border ? child.border : "black"};
               `}`}
             ></div>
-            <div className="child">{child.content}</div>
-            {child?.childs && (
+            <div
+              className={`m-line ${css`
+                background-color: ${child.border ? child.border : "black"};
+              `}`}
+            ></div>
+            <div
+              className={`lines ${length - 1 === index && "hidden"} ${css`
+                background-color: ${child.border ? child.border : "black"};
+              `}`}
+            ></div>
+          </div>
+          <div className="flex p-vertical-2">
+            <div className="flex items-center">
               <div
                 className={`line-horizontal ${css`
-                  background: ${child?.childs[0]?.border
-                    ? child?.childs[0]?.border
-                    : "black"};
+                  background: ${child.border ? child.border : "black"};
                 `}`}
               ></div>
-            )}
-            <div>
-              {child.childs &&
-                child.childs.map((items, index) =>
-                  renderChild({
-                    child: items,
-                    index,
-                    length: child?.childs?.length,
-                  })
-                )}
+              {modify?.[`level${level}`] ? (
+                modify?.[`level${level}`]({ item: items.content, index: index })
+              ) : (
+                <div>{child.content}</div>
+              )}
+              {child?.childs && (
+                <div
+                  className={`line-horizontal ${css`
+                    background: ${child?.childs[0]?.border
+                      ? child?.childs[0]?.border
+                      : "black"};
+                  `}`}
+                ></div>
+              )}
+              <div>
+                {child.childs &&
+                  level++ &&
+                  child.childs.map((items, index) =>
+                    renderChild({
+                      child: items,
+                      index,
+                      length: child?.childs?.length,
+                      level: level,
+                    })
+                  )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className={style}>
       <div className="flex items-center">
-        <div>{items.content}</div>
+        {modify?.level1 ? (
+          modify.level1({ item: items.content, index: 0 })
+        ) : (
+          <div>{items.content}</div>
+        )}
         {items?.childs && (
           <div
             className={`line-horizontal ${css`
@@ -79,7 +99,12 @@ function HiererchyChart({ items }: { items: Child }) {
         )}
         <div>
           {items?.childs?.map((child, index) =>
-            renderChild({ child: child, index, length: items?.childs?.length })
+            renderChild({
+              child: child,
+              index,
+              length: items?.childs?.length,
+              level: 2,
+            })
           )}
         </div>
       </div>
